@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("skills")
+@RequestMapping("/skills")
 public class SkillController {
 
     @Autowired
@@ -20,20 +20,19 @@ public class SkillController {
 
     @GetMapping
     public String displayAllSkills(Model model){
-        model.addAttribute("skill", skillRepository.findAll());
-        return "skills";
+        model.addAttribute("skills", skillRepository.findAll());
+        return "/skills/index";
     }
 
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
         model.addAttribute(new Skill());
-        return "skills/add";
+        return "/skills/add";
     }
 
     @PostMapping("add")
     public String processAddSkillsForm(@ModelAttribute @Valid Skill newSkill,
                                          Errors errors, Model model) {
-
         if (errors.hasErrors()) {
             return "skills/add";
         }
@@ -47,8 +46,8 @@ public class SkillController {
 
         Optional optSkill = skillRepository.findById(skillId);
         if (optSkill.isPresent()) {
-            Skill skill = (Skill) optSkill.get();
-            model.addAttribute("skill", skill);
+            Skill skills = (Skill) optSkill.get();
+            model.addAttribute("skills", skills);
             return "employers/view";
         } else {
             return "redirect:../";
