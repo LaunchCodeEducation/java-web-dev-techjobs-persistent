@@ -10,12 +10,13 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class AbstractEntity {
     @Id
-    @GeneratedValue // might need to remove?
+    @GeneratedValue
     private int id;
 
     @NotBlank
     @Size(max = 180)
     private String name;
+
 
     public int getId() {
         return id;

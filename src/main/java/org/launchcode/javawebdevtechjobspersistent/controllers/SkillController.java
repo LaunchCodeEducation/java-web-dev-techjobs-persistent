@@ -34,21 +34,20 @@ public class SkillController {
     public String processAddSkillsForm(@ModelAttribute @Valid Skill newSkill,
                                          Errors errors, Model model) {
         if (errors.hasErrors()) {
+            model.addAttribute("title", "Add Skill");
             return "skills/add";
         }
         skillRepository.save(newSkill);
-
         return "redirect:";
     }
 
-    @GetMapping("view/{employerId}")
-    public String displayViewEmployer(Model model, @PathVariable int skillId) {
-
-        Optional optSkill = skillRepository.findById(skillId);
+    @GetMapping("view/{skillId}")
+    public String displayViewSkill(Model model, @PathVariable int skillId) {
+        Optional<Skill> optSkill = skillRepository.findById(skillId);
         if (optSkill.isPresent()) {
-            Skill skills = (Skill) optSkill.get();
-            model.addAttribute("skills", skills);
-            return "employers/view";
+            Skill aSkill = optSkill.get();
+            model.addAttribute("skill", aSkill);
+            return "skills/view";
         } else {
             return "redirect:../";
         }
