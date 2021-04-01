@@ -54,6 +54,7 @@ public class HomeController {
             model.addAttribute("employers", employerRepository.findAll());
             model.addAttribute("skills", skillRepository.findAll());
             return "add";
+
         }else if (skills == null || skills.isEmpty()){
             model.addAttribute("title", "Add Job");
             model.addAttribute("employers", employerRepository.findAll());
